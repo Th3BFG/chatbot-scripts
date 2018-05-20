@@ -28,9 +28,11 @@ def Init():
 		settings = {}
 
 def Execute(data):
+	outputMessage = ""
 	if data.IsChatMessage():
-		outputMessage = "YEEEEEEEEEEEET"
-		Parent.SendStreamMessage(outputMessage)
+		if data.GetParam(0) == "Kreygasm":
+			outputMessage = "Kreygasm"
+	Parent.SendStreamMessage(outputMessage)
 	return
 
 def ReloadSettings(jsonData):
