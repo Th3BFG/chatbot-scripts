@@ -33,16 +33,22 @@ class Settings(object):
 
 # Bot functions
 def Init():
-    global ScriptSettings
-	ScriptSettings = Settings(SettingsFile)
+    #global ScriptSettings
+	#ScriptSettings = Settings(SettingsFile)
     return
 
 def ReloadSettings(jsondata):
-    global ScriptSettings
-    ScriptSettings.reload(jsondata)
+    #global ScriptSettings
+    #ScriptSettings.reload(jsondata)
     return
 
 def Execute(data):
+	global responseVariables
+	
+	if data.IsChatMessage():
+		user = Parent.GetDisplayName(data.User)
+		Parent.SendTwitchMessage(user + " said: " + str(data.GetParam(1)))
+		for 
     return
        
 def Tick():
