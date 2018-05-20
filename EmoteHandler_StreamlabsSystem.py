@@ -1,8 +1,9 @@
 import clr
 import sys
 import json
+import time
 import os
-import ctypes
+import threading
 import codecs
 
 ScriptName = "Emote Handler"
@@ -75,7 +76,7 @@ def StartCooldown():
 	global cooldown, settings, cooldownActive
 	cooldown["running"] = True
 	if not cooldownActive:
-		threading.Thread(tartget=CooldownThread, args()).start()
+		threading.Thread(target=CooldownThread, args=()).start()
 		
 def ResetCooldown():
 	global cooldown, settings
@@ -87,7 +88,7 @@ def ResetCooldown():
 def CooldownThread():
 	global cdVariables, cooldown, settings, timeFromLastTick, cooldownActive, threadsKeepAlive
 	cooldownActive = True
-	while cooldown["running"] and threadsKeepAlive
+	while cooldown["running"] and threadsKeepAlive:
 		cooldown["timeLeft"] -= 1
 		if cooldown["currentTime"] < 0:
 			cooldown["timeLeft"] = False
