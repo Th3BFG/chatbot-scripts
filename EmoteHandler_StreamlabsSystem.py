@@ -48,12 +48,13 @@ def Execute(data):
 			# Check if user has a cooldown
 			hasCD = False
 			lock.acquire()
-			if user in cooldowns:
-				if outputMessage in cooldowns[user]:
-					hasCD = cooldowns[user][outputMessage].isAlive()
+			if cooldowns is not None:
+				if cooldowns.get(user) is not None:
+					if cooldowns.get(user).get(outputMessage) is not None:
+						hasCD = cooldowns[user][outputMessage].isAlive()
 			if not hasCD:
-				cooldowns[user] = {}
-				cooldowns[user][outputMessage] = CreateCooldown()
+				cooldowns.get(user) = {}
+				cooldowns.get(user).get(outputMessage) = CreateCooldown()
 				Parent.SendStreamMessage(outputMessage)
 			lock.release()
 	return
