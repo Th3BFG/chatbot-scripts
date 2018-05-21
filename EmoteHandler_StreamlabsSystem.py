@@ -2,6 +2,7 @@ import clr
 import sys
 import json
 import os
+import time
 import threading
 import codecs
 import logging
@@ -29,6 +30,7 @@ def ScriptToggled(state):
 
 def Init():
 	global settings, path, configFile
+	#logging.basicConfig(filename='example.log',level=logging.DEBUG)
 	path = os.path.dirname(__file__)
 	try:
 		with codecs.open(os.path.join(path, configFile), encoding='utf-8-sig', mode='r') as file:
@@ -53,8 +55,8 @@ def Execute(data):
 					if cooldowns.get(user).get(outputMessage) is not None:
 						hasCD = cooldowns[user][outputMessage].isAlive()
 			if not hasCD:
-				cooldowns.get(user) = {}
-				cooldowns.get(user).get(outputMessage) = CreateCooldown()
+				cooldowns[user] = {}
+				cooldowns[user][outputMessage] = CreateCooldown()
 				Parent.SendStreamMessage(outputMessage)
 			lock.release()
 	return
@@ -74,14 +76,15 @@ def Tick():
 # Helpers
 def CreateCooldown():
 	timeLeft = settings["cdInterval"] * 60
+	#logging.debug("$timeLeft starting timer")
 	thread = threading.Thread(target=CooldownThread, args=([timeLeft]))
 	thread.start()
 	return thread
 		
-def CooldownThread(time):
+def CooldownThread(timeToWait):
 	global threadsKeepAlive
-	logging.warning("$time")
-	while time > 0 and threadsKeepAlive:
-		time -= 1
+	#logging.warning(timeToWait)
+	while timeToWait > 0 and threadsKeepAlive:
+		timeToWait -= 1
 		time.sleep(1)		
 	
