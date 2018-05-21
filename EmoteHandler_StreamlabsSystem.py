@@ -11,7 +11,7 @@ ScriptName = "Emote Handler"
 Website = "http://www.github.com/th3bfg"
 Description = "Emote Handler for Streamlabs Bot"
 Creator = "th3bfg"
-Version = "0.0.1"
+Version = "0.0.2"
 
 # Handler Variables
 path = os.path.dirname(__file__)
@@ -52,10 +52,11 @@ def Execute(data):
 			lock.acquire()
 			if cooldowns is not None:
 				if cooldowns.get(user) is not None:
-					if cooldowns.get(user).get(outputMessage) is not None:
+					if cooldowns.get(user).get(outputMessage) is not None:	
 						hasCD = cooldowns[user][outputMessage].isAlive()
 			if not hasCD:
-				cooldowns[user] = {}
+				if cooldowns.get(user) is None:
+					cooldowns[user] = {}
 				cooldowns[user][outputMessage] = CreateCooldown()
 				Parent.SendStreamMessage(outputMessage)
 			lock.release()
