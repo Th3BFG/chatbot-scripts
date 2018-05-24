@@ -5,13 +5,13 @@ import os
 import time
 import threading
 import codecs
-import logging
+#import logging
 
 ScriptName = "Emote Handler"
 Website = "http://www.github.com/th3bfg"
 Description = "Emote Handler for Streamlabs Bot"
 Creator = "th3bfg"
-Version = "0.0.2"
+Version = "0.0.3"
 
 # Handler Variables
 path = os.path.dirname(__file__)
@@ -21,6 +21,18 @@ settings = {}
 cooldowns = {} # Dict of Dict containing threads
 threadsKeepAlive = True;
 
+# Emote List
+emotes = {
+	"Kreygasm": "Kreygasm",
+	"bfgRIP": "bfgRIP",
+	"OMEGALUL": "OMEGALUL",
+	"Clap": "Clap",
+	"monkaS": "monkaS",
+	"FeelsGoodMan": "FeelsGoodMan",
+	"FeelsBadMan": "FeelsBadMan",
+	"RareParrot": "RareParrot",
+	"th3bfgSalty": "th3bfgSalty",
+}
 
 # Script Methods
 def ScriptToggled(state):
@@ -45,21 +57,26 @@ def Execute(data):
 	outputMessage = ""
 	if data.IsChatMessage():
 		user = data.UserName
-		if data.GetParam(0) == "Kreygasm":
-			outputMessage = "Kreygasm"
-			# Check if user has a cooldown
-			hasCD = False
-			lock.acquire()
-			if cooldowns is not None:
-				if cooldowns.get(user) is not None:
-					if cooldowns.get(user).get(outputMessage) is not None:	
-						hasCD = cooldowns[user][outputMessage].isAlive()
-			if not hasCD:
-				if cooldowns.get(user) is None:
-					cooldowns[user] = {}
-				cooldowns[user][outputMessage] = CreateCooldown()
-				Parent.SendStreamMessage(outputMessage)
-			lock.release()
+		# Ignore the bot
+		if user.lower != "th3_bfg_bot":
+			msgToCheck = data.GetParam(0)
+			if emotes.get(msgToCheck) is not None:
+				outputMessage = emotes[msgToCheck]
+			# Verify the need to do work
+			if outputMessage != "":
+				# Check if user has a cooldown
+				hasCD = False
+				lock.acquire()
+				if cooldowns is not None:
+					if cooldowns.get(user) is not None:
+						if cooldowns.get(user).get(outputMessage) is not None:	
+							hasCD = cooldowns[user][outputMessage].isAlive()
+				if not hasCD:
+					if cooldowns.get(user) is None:
+						cooldowns[user] = {}
+					cooldowns[user][outputMessage] = CreateCooldown()
+					Parent.SendStreamMessage(outputMessage)
+				lock.release()
 	return
 
 def ReloadSettings(jsonData):
@@ -77,14 +94,13 @@ def Tick():
 # Helpers
 def CreateCooldown():
 	timeLeft = settings["cdInterval"] * 60
-	#logging.debug("$timeLeft starting timer")
 	thread = threading.Thread(target=CooldownThread, args=([timeLeft]))
 	thread.start()
 	return thread
 		
 def CooldownThread(timeToWait):
 	global threadsKeepAlive
-	#logging.warning(timeToWait)
+	# Loops seems dumb, but easiest way to check Keep Alive
 	while timeToWait > 0 and threadsKeepAlive:
 		timeToWait -= 1
 		time.sleep(1)		
