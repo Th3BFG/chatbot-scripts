@@ -1,11 +1,9 @@
-import clr
 import sys
 import json
 import os
 import time
 import threading
 import codecs
-#import logging
 
 ScriptName = "Emote Handler"
 Website = "http://www.github.com/th3bfg"
