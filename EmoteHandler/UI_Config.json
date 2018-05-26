@@ -3,8 +3,8 @@
 
     "openReadMe": {
         "type": "button",
-        "label": "Open Readme.txt",
-        "tooltip": "Opens the 'Readme.txt' for this script.",
+        "label": "Open Readme.md",
+        "tooltip": "Opens the 'Readme.md' for this script.",
         "function": "OpenReadMe",
         "wsevent": "",
         "group": ""
@@ -15,12 +15,12 @@
         "label": "Cooldown for Emote responses",
         "tooltip": "Cooldown is in minutes",
         "group": ""
-},
+	},
 	"emotes": {
 		"type": "textbox",
-        "value": "Kreygasm, bfgRIP, OMEGALUL, Clap, monkaS, FeelsGoodMan, FeelsBadMan, RareParrot, th3bfgSalty",
+        "value": "Kreygasm, FeelsGoodMan",
         "label": "List of Emotes to recognize",
-        "tooltip": "List of the Emotes you want to use. Seperate them per Comma.",
+        "tooltip": "List of the Emotes you want to use. Seperate with a comma.",
 		"group": ""
 	}
 }

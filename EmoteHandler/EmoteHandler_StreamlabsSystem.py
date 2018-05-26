@@ -15,10 +15,10 @@ Version = "0.0.4"
 
 # Handler Variables
 path = os.path.dirname(__file__)
-configFile = "config.json"
+configFile = "EmotesConfig.json"
 lock = threading.Lock()
 settings = {}
-emotes = {}
+emoteList = {}
 cooldowns = {} # Dict of Dict containing threads
 threadsKeepAlive = True;
 
@@ -31,7 +31,6 @@ def ScriptToggled(state):
 
 def Init():
 	global settings, path, configFile
-	#logging.basicConfig(filename='example.log',level=logging.DEBUG)
 	path = os.path.dirname(__file__)
 	try:
 		with codecs.open(os.path.join(path, configFile), encoding='utf-8-sig', mode='r') as file:
@@ -39,7 +38,7 @@ def Init():
 	except:
 		settings = {
 			"cdInterval": 3,
-			"emotes": "Kreygasm"
+			"emotes": "Kreygasm, FeelsGoodMan"
 		}
 	GetEmoteResponses()
 
@@ -51,8 +50,8 @@ def Execute(data):
 		# Ignore the bot
 		if user.lower != "th3_bfg_bot":
 			msgToCheck = data.GetParam(0)
-			if emotes.get(msgToCheck) is not None:
-				outputMessage = emotes[msgToCheck]
+			if emoteList.get(msgToCheck) is not None:
+				outputMessage = emoteList[msgToCheck]
 			# Verify the need to do work
 			if outputMessage != "":
 				# Check if user has a cooldown
@@ -71,7 +70,7 @@ def Execute(data):
 	return
 
 def ReloadSettings(jsonData):
-	global settings, configFile, emotes
+	global settings, configFile
 	Init()
 	return
 
@@ -98,7 +97,8 @@ def CooldownThread(timeToWait):
 		time.sleep(1)		
 	
 def GetEmoteResponses():
-	global settings, emotes
-	for emote in settings["emotes"]:
+	global settings, emoteList
+	emotes = settings["emotes"].replace(" ", "").split(",")
+	for emote in emotes:
 		# For now, just add the emote as the response, custome responses soon
-		emotes[emote] = emote
+		emoteList[emote] = emote
