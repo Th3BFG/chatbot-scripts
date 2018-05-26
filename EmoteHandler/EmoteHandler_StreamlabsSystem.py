@@ -11,7 +11,7 @@ ScriptName = "Emote Handler"
 Website = "http://www.github.com/th3bfg"
 Description = "Emote Handler for Streamlabs Bot"
 Creator = "th3bfg"
-Version = "0.0.3"
+Version = "0.0.4"
 
 # Handler Variables
 path = os.path.dirname(__file__)
