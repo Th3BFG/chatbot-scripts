@@ -3,7 +3,7 @@
 
     "openReadMe": {
         "type": "button",
-        "label": "Open Readme.md",
+        "label": "Open README",
         "tooltip": "Opens the 'Readme.md' for this script.",
         "function": "OpenReadMe",
         "wsevent": "",
@@ -12,15 +12,15 @@
 	"cdInterval": {
         "type": "numberbox",
         "value": "3",
-        "label": "Cooldown for Emote responses",
-        "tooltip": "Cooldown is in minutes",
+        "label": "Emote Response Cooldown",
+        "tooltip": "Cooldown in minutes",
         "group": ""
 	},
-	"emotes": {
+	"emoteDictionary": {
 		"type": "textbox",
-        "value": "Kreygasm, FeelsGoodMan",
-        "label": "List of Emotes to recognize",
-        "tooltip": "List of the Emotes you want to use. Seperate with a comma.",
+        "value": "Kreygasm; FeelsGoodMan",
+        "label": "Emote:Response Dictionary",
+        "tooltip": "Separate Emote from Response with colon. Separate each entry with semicolon.",
 		"group": ""
 	}
-}
+} 

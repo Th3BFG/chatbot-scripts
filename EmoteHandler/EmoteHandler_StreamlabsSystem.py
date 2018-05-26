@@ -9,7 +9,7 @@ ScriptName = "Emote Handler"
 Website = "http://www.github.com/th3bfg"
 Description = "Emote Handler for Streamlabs Bot"
 Creator = "th3bfg"
-Version = "0.0.4"
+Version = "0.0.6"
 
 # Handler Variables
 path = os.path.dirname(__file__)
@@ -36,7 +36,7 @@ def Init():
 	except:
 		settings = {
 			"cdInterval": 3,
-			"emotes": "Kreygasm, FeelsGoodMan"
+			"emoteDictionary": "Kreygasm; FeelsGoodMan"
 		}
 	GetEmoteResponses()
 
@@ -96,7 +96,11 @@ def CooldownThread(timeToWait):
 	
 def GetEmoteResponses():
 	global settings, emoteList
-	emotes = settings["emotes"].replace(" ", "").split(",")
-	for emote in emotes:
-		# For now, just add the emote as the response, custome responses soon
-		emoteList[emote] = emote
+	emotesResponses = settings["emoteDictionary"].replace(" ", "").split(";")
+	for emoteResponse in emotesResponses:
+		# Check for custom response
+		splitItem = emoteResponse.split(":")
+		if len(splitItem) > 1:
+			emoteList[splitItem[0]] = splitItem[1]
+		else:
+			emoteList[splitItem[0]] = splitItem[0]
