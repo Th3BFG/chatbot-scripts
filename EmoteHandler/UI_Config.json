@@ -1,0 +1,26 @@
+{
+    "output_file": "EmotesConfig.json",
+
+    "openReadMe": {
+        "type": "button",
+        "label": "Open Readme.txt",
+        "tooltip": "Opens the 'Readme.txt' for this script.",
+        "function": "OpenReadMe",
+        "wsevent": "",
+        "group": ""
+    },
+	"cdInterval": {
+        "type": "numberbox",
+        "value": "3",
+        "label": "Cooldown for Emote responses",
+        "tooltip": "Cooldown is in minutes",
+        "group": ""
+},
+	"emotes": {
+		"type": "textbox",
+        "value": "Kreygasm, bfgRIP, OMEGALUL, Clap, monkaS, FeelsGoodMan, FeelsBadMan, RareParrot, th3bfgSalty",
+        "label": "List of Emotes to recognize",
+        "tooltip": "List of the Emotes you want to use. Seperate them per Comma.",
+		"group": ""
+	}
+}
